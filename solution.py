@@ -39,10 +39,11 @@ def webServer(port=13331):
                 errorNotFound = "HTTP/1.1 404 Not Found\r\n\r\n"
                 connectionSocket.send(errorNotFound.encode("utf-8"))
                 #print(errorNotFound)
+                connectionSocket.close()
         # Fill in end
         # Close client socket
         # Fill in start
-            connectionSocket.close()
+
         # Fill in end
         except(ConnectionResetError, BrokenPipeError):
             pass
