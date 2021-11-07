@@ -1,7 +1,6 @@
 import ssl
 from socket import *
 
-
 def smtp_client(port=1025, mailserver='127.0.0.1'):
    msg = "\r\n My message"
    endmsg = "\r\n.\r\n"
@@ -10,19 +9,21 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # (#open the socket , connect)
 
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
-
+   print("before opening connection")
    # Fill in start2
-   servername = "smtp.nyu.edu"
-   port= 465
+   servername = "smtp.aol.com"
+   port= 25
    # Fill in end5
    clientSocket = socket(AF_INET, SOCK_STREAM)
    clientSocket = ssl.wrap_socket(clientSocket)
    clientSocket.connect((servername, port))
    # Fill in end5
-   print("hello")
+   print("after opening socket ")
    recv = clientSocket.recv(1024).decode()
-
    print(recv)
+   print(" after receving connecion " + recv)
+
+
    if recv[:3] != '220':
        print('220 reply not received from server.')
 
@@ -64,14 +65,23 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Send message data.
    # Fill in start
+   message = "how are you?"
+   clientSocket.send(message.encode())
    # Fill in end
 
    # Message ends with a single period.
    # Fill in start
+   end_msg = "."
+   clientSocket.send(end_msg.encode())
    # Fill in end
 
    # Send QUIT command and get server response.
    # Fill in start
+   quit = "QUIT\r\n"
+   clientSocket.send(quit.encode())
+   recv5 = clientSocket.recv(1024)
+   print(recv5.decode())
+   clientSocket.close()
    # Fill in end
 
 
