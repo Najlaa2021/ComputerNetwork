@@ -1,4 +1,4 @@
-import ssl
+
 from socket import *
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
@@ -9,9 +9,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # (#open the socket , connect)
 
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
-   print("before opening connection")
    # Fill in start2
-   servername = "smtp.aol.com"
+   servername = "127.0.0.1"
    port= 25
    # Fill in end5
    clientSocket = socket(AF_INET, SOCK_STREAM)
@@ -21,7 +20,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    print("after opening socket ")
    recv = clientSocket.recv(1024).decode()
    print(recv)
-   print(" after receving connecion " + recv)
+   #print(" after receving connecion " + recv)
 
 
    if recv[:3] != '220':
