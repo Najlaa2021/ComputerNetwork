@@ -1,4 +1,4 @@
-
+#import ssl
 from socket import *
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
@@ -10,11 +10,13 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
    # Fill in start2
+   #servername = "smtp.gmail.com"
+   #port= 465
    servername = "127.0.0.1"
-   port= 25
+   port = 1025
    # Fill in end5
    clientSocket = socket(AF_INET, SOCK_STREAM)
-   clientSocket = ssl.wrap_socket(clientSocket)
+   #clientSocket = ssl.wrap_socket(clientSocket)
    clientSocket.connect((servername, port))
    # Fill in end5
    print("after opening socket ")
@@ -45,7 +47,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Send RCPT TO command and print server response.
    # Fill in start
-   rcptTo = "MAIL RCPT TO:<nb3216@nyu.edu>\r\n"
+   rcptTo = "RCPT TO:<nb3216@nyu.edu>\r\n"
    clientSocket.send(rcptTo.encode())
    recv3 = clientSocket.recv(1024)
    recv3 = recv3.decode()
@@ -54,7 +56,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Fill in start
    print("After RCPT TO command: " + recv3)
-   data = "MAIL DATA : I am Najlaa, sending a message \r\n"
+   data = "DATA : I am Najlaa, sending a message \r\n"
    clientSocket.send(data.encode())
    recv4 = clientSocket.recv(1024)
    recv4 = recv4.decode()
@@ -70,7 +72,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Message ends with a single period.
    # Fill in start
-   end_msg = "."
+   end_msg = "\r\n.\r\n"
    clientSocket.send(end_msg.encode())
    # Fill in end
 
