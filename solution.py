@@ -1,4 +1,4 @@
-#import ssl
+
 from socket import *
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
@@ -10,10 +10,9 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
    # Fill in start2
-   #servername = "smtp.gmail.com"
-   #port= 465
    servername = "127.0.0.1"
-   port = 1025
+   port= 1025
+
    # Fill in end5
    clientSocket = socket(AF_INET, SOCK_STREAM)
    #clientSocket = ssl.wrap_socket(clientSocket)
@@ -22,7 +21,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    print("after opening socket ")
    recv = clientSocket.recv(1024).decode()
    print(recv)
-   #print(" after receving connecion " + recv)
+   print(" after receving connecion " + recv)
 
 
    if recv[:3] != '220':
@@ -36,9 +35,11 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    if recv1[:3] != '250':
        print('250 reply not received from server.')
 
+
    # Send MAIL FROM command and print server response.
+   print("hello successful")
    # Fill in start
-   mailFrom = "MAIL FROM:<nb3261@nyu.edu>\r\n"
+   mailFrom = "MAIL FROM:<nb3216@nyu.edu>\r\n"
    clientSocket.send(mailFrom.encode())
    # Fill in end
    recv2 = clientSocket.recv(1024)
@@ -51,12 +52,13 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    clientSocket.send(rcptTo.encode())
    recv3 = clientSocket.recv(1024)
    recv3 = recv3.decode()
+   print("After RCPT TO command: " + recv3)
    # Fill in end
 
 
    # Fill in start
    print("After RCPT TO command: " + recv3)
-   data = "DATA : I am Najlaa, sending a message \r\n"
+   data = "DATA\r\n"
    clientSocket.send(data.encode())
    recv4 = clientSocket.recv(1024)
    recv4 = recv4.decode()
@@ -66,7 +68,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Send message data.
    # Fill in start
-   message = "how are you?"
+   message = "\r\n I love computer networks!"
    clientSocket.send(message.encode())
    # Fill in end
 
@@ -75,7 +77,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    end_msg = "\r\n.\r\n"
    clientSocket.send(end_msg.encode())
    # Fill in end
-
+   # recv_msg = clientSocket.recv(1024)
+   # print("Response after sending message body:" + recv_msg.decode())
    # Send QUIT command and get server response.
    # Fill in start
    quit = "QUIT\r\n"
@@ -91,4 +94,8 @@ if __name__ == '__main__':
 
 
 
-
+   # mailFrom = "MAIL FROM:<xxxxxxxx>\r\n"
+   # clientSocket.send(mailFrom.encode())
+   # recv2 = clientSocket.recv(1024)
+   # recv2 = recv2.decode()
+   # print("After MAIL FROM command: " + recv2)
