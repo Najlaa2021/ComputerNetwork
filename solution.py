@@ -20,8 +20,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Fill in end5
    #print("after opening socket ")
    recv = clientSocket.recv(1024).decode()
-   print(recv)
-   print(" after receving connecion " + recv)
+   #print(recv)
+   #print(" after receving connecion " + recv)
 
 
    if recv[:3] != '220':
@@ -31,13 +31,13 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    heloCommand = 'HELO Najlaa \r\n'
    clientSocket.send(heloCommand.encode())
    recv1 = clientSocket.recv(1024).decode()
-   print(recv1)
+   #print(recv1)
    if recv1[:3] != '250':
        print('250 reply not received from server.')
 
 
    # Send MAIL FROM command and print server response.
-   print("hello successful")
+   #print("hello successful")
    # Fill in start
    mailFrom = "MAIL FROM:<nb3216@nyu.edu>\r\n"
    clientSocket.send(mailFrom.encode())
