@@ -10,15 +10,15 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
    # Fill in start2
-   servername = "127.0.0.1"
-   port= 1025
+   #servername = "127.0.0.1"
+   #port= 1025
 
    # Fill in end5
    clientSocket = socket(AF_INET, SOCK_STREAM)
    #clientSocket = ssl.wrap_socket(clientSocket)
    clientSocket.connect((mailserver, port))
    # Fill in end5
-   print("after opening socket ")
+   #print("after opening socket ")
    recv = clientSocket.recv(1024).decode()
    print(recv)
    print(" after receving connecion " + recv)
@@ -44,7 +44,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Fill in end
    recv2 = clientSocket.recv(1024)
    recv2 = recv2.decode()
-   print("After MAIL FROM command: " + recv2)
+   #print("After MAIL FROM command: " + recv2)
 
    # Send RCPT TO command and print server response.
    # Fill in start
@@ -52,17 +52,17 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    clientSocket.send(rcptTo.encode())
    recv3 = clientSocket.recv(1024)
    recv3 = recv3.decode()
-   print("After RCPT TO command: " + recv3)
+   #print("After RCPT TO command: " + recv3)
    # Fill in end
 
 
    # Fill in start
-   print("After RCPT TO command: " + recv3)
+   #print("After RCPT TO command: " + recv3)
    data = "DATA\r\n"
    clientSocket.send(data.encode())
    recv4 = clientSocket.recv(1024)
    recv4 = recv4.decode()
-   print("After DATA command: " + recv4)
+   #print("After DATA command: " + recv4)
    #Send DATA command and print server response.
    # Fill in end
 
@@ -84,7 +84,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    quit = "QUIT\r\n"
    clientSocket.send(quit.encode())
    recv5 = clientSocket.recv(1024)
-   print(recv5.decode())
+   #print(recv5.decode())
    clientSocket.close()
    # Fill in end
 
