@@ -50,6 +50,11 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
 
         # Fill in start
 
+        icmp_header = recPacket[20:28]
+        type, code, checksum, p_id, sequence = struct.unpack( 'bbHHh', icmp_header)
+        if p_id == ID:
+            return timeReceived - startedSelect
+
         # Fetch the ICMP header from the IP packet
 
         # Fill in end
@@ -117,6 +122,5 @@ def ping(host, timeout=1):
     return vars
 
 if __name__ == '__main__':
-    ping("google.co.il")
-Pinger_skeleton.py
-Displaying Pinger_skeleton.py.
+    ping('www.google.com')
+Print("hi")
