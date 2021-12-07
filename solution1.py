@@ -5,6 +5,7 @@ import sys
 import struct
 import time
 import select
+import statistics
 import binascii
 # Should use stdev
 
@@ -114,13 +115,25 @@ def ping(host, timeout=1):
     # Calculate vars values and return them
     #  vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(stdev_var), 2))]
     # Send ping requests to a server separated by approximately one second
+    delay_list = []
+
     for i in range(0,4):
         delay = doOnePing(dest, timeout)
-        print(delay)
+        delay_list.append(delay)
+        #print(delay)
         time.sleep(1)  # one second
+    packet_max = max(delay_list)
+    packet_min = min(delay_list)
+    packet_avg = sum(delay_list)/len(delay_list)
+    stdev_var = statistics.stdev(delay_list)
+
+
+    print( packet_min, packet_avg, packet_max, stdev_var)
+
+    vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),
+            str(round(stdev_var, 2))]
 
     return vars
 
 if __name__ == '__main__':
-    ping('www.google.com')
-Print("hi")
+    ping('www.google.co.il')
